@@ -21,6 +21,12 @@ body { background:#0a0a0a; }
 .press { transition: transform .12s cubic-bezier(.16,1,.3,1), background-color .15s, color .15s; }
 .press:active { transform: translateY(1px) scale(.99); }
 
+/* Loading state (roast tool) */
+@keyframes blink-bar { 0%, 100% { opacity: 1; } 50% { opacity: .15; } }
+.loading-bar { display: inline-block; width: 10px; height: 18px; background: #FFE000; animation: blink-bar .9s ease-in-out infinite; }
+@keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75%, 100% { content: "..."; } }
+.loading-dots::after { content: ""; animation: dots 1.2s steps(1) infinite; }
+
 /* Grain overlay (fixed, never on scroll containers) */
 .grain {
   position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .05;
@@ -31,4 +37,6 @@ body { background:#0a0a0a; }
   html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .loading-bar { animation: none; }
+  .loading-dots::after { content: "..."; animation: none; }
 }

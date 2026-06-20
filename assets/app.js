@@ -80,18 +80,83 @@
     document.querySelectorAll('[data-need-auth]').forEach(function (el) { el.classList.toggle('hidden', loggedIn); });
   }
 
-  // ---- Roast tool (placeholder until the AI backend is wired) ----
+  // ---- Roast tool (OpenRouter) ----
+  var ROAST_SYSTEM = 'You are a brutally honest landing page critic. Given the visible text of a landing page, return a strict verdict in this exact shape:\nGrade: <a single letter A to F, plus or minus allowed>\nThen exactly 5 numbered issues. Each issue is one sharp sentence, ranked by conversion impact. Be concrete, specific and a little funny. No intro, no closing, no fluff.';
+
   var rf = document.getElementById('form-roast');
   if (rf) {
+    var out = document.getElementById('roast-output');
+    var loading = document.getElementById('roast-loading');
+    var phase = document.getElementById('roast-phase');
+    var status = document.getElementById('roast-status');
+    var meta = document.getElementById('roast-meta');
+
+    function showLoading(text, metaText) {
+      out.classList.remove('hidden');
+      loading.classList.remove('hidden');
+      loading.classList.add('flex');
+      status.classList.add('hidden');
+      if (phase) phase.textContent = text;
+      if (meta) meta.textContent = metaText;
+    }
+    function showResult(text, metaText) {
+      loading.classList.add('hidden');
+      loading.classList.remove('flex');
+      status.classList.remove('hidden');
+      status.textContent = text;
+      if (meta) meta.textContent = metaText;
+    }
+
     rf.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var err = rf.querySelector('[data-error]'); if (err) err.classList.add('hidden');
+      var btn = rf.querySelector('button[type=submit]');
       var url = rf.url.value.trim();
       if (!url) { if (err) { err.textContent = 'Paste a URL first.'; err.classList.remove('hidden'); } rf.url.focus(); return; }
-      var out = document.getElementById('roast-output');
-      var status = document.getElementById('roast-status');
-      if (status) status.textContent = 'Analyzing ' + url + ' ... backend not connected yet. The AI verdict will render here.';
-      if (out) out.classList.remove('hidden');
+
+      var key = window.ROAST_KEY;
+      if (!key) {
+        showResult('No API key configured. Copy assets/secrets.example.js to assets/secrets.js and add your OpenRouter key.', 'no key');
+        return;
+      }
+
+      var target = /^https?:\/\//i.test(url) ? url : 'https://' + url;
+      btn.disabled = true; var label = btn.textContent; btn.textContent = 'Roasting...';
+      showLoading('Reading the page', 'reading');
+
+      // 1) Pull readable page text via a CORS-friendly reader, then 2) roast it.
+      fetch('https://r.jina.ai/' + target)
+        .then(function (r) { return r.ok ? r.text() : ''; })
+        .catch(function () { return ''; })
+        .then(function (pageText) {
+          showLoading('Roasting your page', 'roasting');
+          var userMsg = 'URL: ' + target + '\n\nVisible page text:\n' +
+            (pageText ? pageText.slice(0, 6000) : '(could not fetch the page, critique it based on the URL and what such pages usually get wrong)');
+          return fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              model: 'openrouter/free',
+              messages: [
+                { role: 'system', content: ROAST_SYSTEM },
+                { role: 'user', content: userMsg }
+              ]
+            })
+          });
+        })
+        .then(function (resp) { return resp.json(); })
+        .then(function (data) {
+          var content = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+          if (content) {
+            showResult(content.trim(), 'done');
+          } else {
+            showResult('No verdict came back. ' + (data && data.error ? (data.error.message || JSON.stringify(data.error)) : 'Try again.'), 'error');
+          }
+        })
+        .catch(function (e) {
+          showResult('Something broke: ' + e.message, 'error');
+        })
+        .then(function () { btn.disabled = false; btn.textContent = label; });
     });
   }
 })();

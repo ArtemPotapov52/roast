@@ -63,19 +63,23 @@
         <p data-error class="mt-2 hidden font-mono text-xs text-brand" role="alert"></p>
       </form>
 
-      <!-- Output placeholder until the AI backend is wired -->
+      <!-- Roast output -->
       <div id="roast-output" class="mt-10 hidden">
         <div class="border border-line bg-coal">
           <div class="flex items-center justify-between border-b border-line px-5 py-3 font-mono text-xs text-muted">
-            <span>roast.txt</span><span>pending</span>
+            <span>roast.txt</span><span id="roast-meta">idle</span>
           </div>
           <div class="p-6">
-            <p id="roast-status" class="font-mono text-sm leading-relaxed text-muted"></p>
+            <!-- loading state -->
+            <div id="roast-loading" class="hidden items-center gap-3">
+              <span class="loading-bar" aria-hidden="true"></span>
+              <span id="roast-phase" class="font-mono text-sm text-muted">Reading the page</span><span class="loading-dots font-mono text-sm text-muted" aria-hidden="true"></span>
+            </div>
+            <!-- verdict / message -->
+            <p id="roast-status" class="hidden whitespace-pre-wrap font-mono text-sm leading-relaxed text-paper"></p>
           </div>
         </div>
       </div>
-
-      <p class="mt-8 font-mono text-xs text-muted">Backend connecting soon. Right now this is the interface only.</p>
     </div>
   </section>
 </main>
@@ -84,6 +88,7 @@
   <div class="mx-auto max-w-[1280px] px-5 py-6 text-center font-mono text-xs text-muted sm:px-8">ROAST. We score your page so a stranger does not have to.</div>
 </footer>
 
+<script src="assets/secrets.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
