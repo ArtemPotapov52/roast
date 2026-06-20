@@ -1,4 +1,4 @@
-/* ROAST — shared client behavior (demo: no backend) */
+/* ROAST — shared client behavior. Roasting runs through /api/roast (Cloudflare Pages Function). */
 (function () {
   'use strict';
 
