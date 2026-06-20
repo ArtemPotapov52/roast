@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Roast a page — ROAST</title>
+<meta name="description" content="Paste a URL and get the AI roast." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/config.js"></script>
+</head>
+<body data-guard class="flex min-h-[100dvh] flex-col bg-ink text-paper font-sans antialiased">
+<div class="grain" aria-hidden="true"></div>
+
+<header class="sticky top-0 z-50 border-b border-line bg-ink/85 backdrop-blur">
+  <nav class="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
+    <a href="index.html" class="flex items-center gap-2 font-display text-lg font-700 tracking-tight">
+      <span class="inline-flex h-7 w-7 items-center justify-center bg-brand text-ink font-700">R</span> ROAST
+    </a>
+    <div class="hidden items-center gap-8 text-sm text-muted md:flex">
+      <a href="index.html" class="transition-colors hover:text-paper">Home</a>
+      <a href="how.html" class="transition-colors hover:text-paper">How it works</a>
+      <a href="sample.html" class="transition-colors hover:text-paper">Sample roast</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <span data-auth-in class="hidden font-mono text-xs text-muted" data-user-email></span>
+      <a href="#" data-auth-in data-logout class="hidden text-sm text-muted transition-colors hover:text-paper">Log out</a>
+      <a href="login.html" data-auth-out class="hidden text-sm text-muted transition-colors hover:text-paper">Sign in</a>
+    </div>
+  </nav>
+</header>
+
+<main class="flex-1">
+  <!-- Logged-out state -->
+  <section data-need-auth class="hidden">
+    <div class="mx-auto max-w-[1280px] px-5 py-24 text-center sm:px-8">
+      <h1 class="mx-auto max-w-xl font-display text-4xl font-700 tracking-tight sm:text-5xl">Create an account to roast your page.</h1>
+      <p class="mx-auto mt-4 max-w-lg text-muted">It is free for your first roast. Email and a password, nothing else.</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="signup.html" class="press inline-flex items-center justify-center bg-brand px-8 py-3 font-display font-600 text-ink hover:bg-paper">Create account</a>
+        <a href="login.html" class="press inline-flex items-center justify-center border border-line px-8 py-3 font-display font-600 text-paper hover:border-brand">Sign in</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logged-in tool -->
+  <section data-gated class="hidden">
+    <div class="mx-auto max-w-[900px] px-5 py-16 sm:px-8 lg:py-20">
+      <h1 class="font-display text-3xl font-700 tracking-tight sm:text-5xl">Roast a page</h1>
+      <p class="mt-3 text-muted">Paste any public URL. The AI reads it like a skeptical buyer and scores it without mercy.</p>
+
+      <form id="form-roast" class="mt-8" novalidate>
+        <label for="url" class="mb-2 block font-mono text-xs uppercase tracking-wide text-muted">Landing page URL</label>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <input id="url" name="url" type="url" inputmode="url" autocomplete="url"
+            placeholder="https://yoursite.com"
+            class="w-full border border-line bg-coal px-4 py-3 text-paper placeholder:text-muted/70 outline-none focus:border-brand focus:ring-2 focus:ring-brand/40" />
+          <button type="submit" class="press shrink-0 bg-brand px-7 py-3 font-display font-600 text-ink hover:bg-paper">Roast it</button>
+        </div>
+        <p data-error class="mt-2 hidden font-mono text-xs text-brand" role="alert"></p>
+      </form>
+
+      <!-- Output placeholder until the AI backend is wired -->
+      <div id="roast-output" class="mt-10 hidden">
+        <div class="border border-line bg-coal">
+          <div class="flex items-center justify-between border-b border-line px-5 py-3 font-mono text-xs text-muted">
+            <span>roast.txt</span><span>pending</span>
+          </div>
+          <div class="p-6">
+            <p id="roast-status" class="font-mono text-sm leading-relaxed text-muted"></p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-8 font-mono text-xs text-muted">Backend connecting soon. Right now this is the interface only.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-line">
+  <div class="mx-auto max-w-[1280px] px-5 py-6 text-center font-mono text-xs text-muted sm:px-8">ROAST. We score your page so a stranger does not have to.</div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

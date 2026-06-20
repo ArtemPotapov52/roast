@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Sign in — ROAST</title>
+<meta name="description" content="Sign in to ROAST and roast your landing page." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/config.js"></script>
+</head>
+<body class="flex min-h-[100dvh] flex-col bg-ink text-paper font-sans antialiased">
+<div class="grain" aria-hidden="true"></div>
+
+<header class="border-b border-line">
+  <nav class="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
+    <a href="index.html" class="flex items-center gap-2 font-display text-lg font-700 tracking-tight">
+      <span class="inline-flex h-7 w-7 items-center justify-center bg-brand text-ink font-700">R</span> ROAST
+    </a>
+    <a href="signup.html" class="text-sm text-muted transition-colors hover:text-paper">No account? Create one</a>
+  </nav>
+</header>
+
+<main class="flex flex-1 items-center justify-center px-5 py-16">
+  <div class="w-full max-w-md">
+    <h1 class="font-display text-3xl font-700 tracking-tight sm:text-4xl">Sign in</h1>
+    <p class="mt-2 text-muted">Welcome back. Time to roast something.</p>
+
+    <form id="form-login" class="mt-8" novalidate>
+      <div class="flex flex-col gap-1.5">
+        <label for="email" class="font-mono text-xs uppercase tracking-wide text-muted">Email</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required
+          placeholder="you@startup.com"
+          class="w-full border border-line bg-coal px-4 py-3 text-paper placeholder:text-muted/70 outline-none focus:border-brand focus:ring-2 focus:ring-brand/40" />
+      </div>
+      <div class="mt-4 flex flex-col gap-1.5">
+        <label for="password" class="font-mono text-xs uppercase tracking-wide text-muted">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required
+          placeholder="Your password"
+          class="w-full border border-line bg-coal px-4 py-3 text-paper placeholder:text-muted/70 outline-none focus:border-brand focus:ring-2 focus:ring-brand/40" />
+      </div>
+      <p data-error class="mt-3 hidden font-mono text-xs text-brand" role="alert"></p>
+      <button type="submit" class="press mt-6 w-full bg-brand px-6 py-3 font-display font-600 text-ink hover:bg-paper">Sign in</button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-muted">
+      New here? <a href="signup.html" class="text-brand hover:underline">Create an account</a>
+    </p>
+  </div>
+</main>
+
+<footer class="border-t border-line">
+  <div class="mx-auto max-w-[1280px] px-5 py-6 text-center font-mono text-xs text-muted sm:px-8">ROAST. We score your page so a stranger does not have to.</div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

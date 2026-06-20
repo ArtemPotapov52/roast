@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Sample roast — ROAST</title>
+<meta name="description" content="A real roast, unedited. We ran it on a generic AI SaaS homepage and it scored a D minus." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/config.js"></script>
+</head>
+<body class="bg-ink text-paper font-sans antialiased">
+<div class="grain" aria-hidden="true"></div>
+
+<header class="sticky top-0 z-50 border-b border-line bg-ink/85 backdrop-blur">
+  <nav class="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
+    <a href="index.html" class="flex items-center gap-2 font-display text-lg font-700 tracking-tight">
+      <span class="inline-flex h-7 w-7 items-center justify-center bg-brand text-ink font-700">R</span> ROAST
+    </a>
+    <div class="hidden items-center gap-8 text-sm text-muted md:flex">
+      <a href="index.html" class="transition-colors hover:text-paper">Home</a>
+      <a href="how.html" class="transition-colors hover:text-paper">How it works</a>
+      <a href="sample.html" class="text-paper">Sample roast</a>
+    </div>
+    <div class="hidden items-center gap-4 md:flex">
+      <a href="login.html" data-auth-out class="text-sm text-muted transition-colors hover:text-paper">Sign in</a>
+      <span data-auth-in class="hidden font-mono text-xs text-muted" data-user-email></span>
+      <a href="#" data-auth-in data-logout class="hidden text-sm text-muted transition-colors hover:text-paper">Log out</a>
+      <a href="app.html" class="press bg-brand px-4 py-2 font-display text-sm font-600 text-ink hover:bg-paper">Roast me</a>
+    </div>
+    <button id="menu-btn" class="inline-flex h-10 w-10 items-center justify-center border border-line md:hidden" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div id="mobile-menu" class="hidden border-t border-line bg-ink md:hidden">
+    <div class="flex flex-col px-5 py-3">
+      <a href="index.html" class="py-2 text-muted hover:text-paper">Home</a>
+      <a href="how.html" class="py-2 text-muted hover:text-paper">How it works</a>
+      <a href="sample.html" class="py-2 text-paper">Sample roast</a>
+      <a href="login.html" data-auth-out class="py-2 text-muted hover:text-paper">Sign in</a>
+      <a href="#" data-auth-in data-logout class="hidden py-2 text-muted hover:text-paper">Log out</a>
+      <a href="app.html" class="mt-2 bg-brand px-4 py-2 text-center font-display font-600 text-ink">Roast me</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="border-b border-line">
+    <div class="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 lg:py-24">
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-4">
+          <span class="inline-flex items-center gap-2 border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-brand">Sample roast</span>
+          <h1 class="mt-6 font-display text-4xl font-700 leading-[1.05] tracking-tight sm:text-5xl">A real roast looks like this.</h1>
+          <p class="mt-4 text-muted">We ran it on a generic AI SaaS homepage. Here is the verdict, unedited.</p>
+          <div class="mt-8 inline-flex items-baseline gap-3 border border-line bg-coal px-5 py-4">
+            <span class="font-display text-5xl font-700 text-brand">D-</span>
+            <span class="font-mono text-xs uppercase tracking-wide text-muted">overall</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-8">
+          <div data-reveal class="border border-line bg-coal">
+            <div class="flex items-center justify-between border-b border-line px-5 py-3 font-mono text-xs text-muted">
+              <span>roast.txt</span><span>14 issues / 5 that matter</span>
+            </div>
+            <div class="space-y-5 p-6 font-mono text-sm leading-relaxed">
+              <p><span class="text-brand">01 Hero.</span> I read your headline twice and still cannot tell what you sell. "Reimagine your workflow" describes 9,000 products. Say the literal thing you do.</p>
+              <p><span class="text-brand">02 CTA.</span> Three buttons above the fold, all grey, all equal weight. The eye has nowhere to go. Pick one action, make it loud, kill the rest.</p>
+              <p><span class="text-brand">03 Proof.</span> "Trusted by teams everywhere" with no logos is worse than no claim. Show three real names or delete the sentence.</p>
+              <p><span class="text-brand">04 Copy.</span> 280 words before a single concrete benefit. A buyer decides in 8 seconds. You are spending them on adjectives.</p>
+              <p><span class="text-brand">05 Design.</span> Purple gradient, glass cards, a 3-column feature row. This is the default. Default is invisible. Nothing here is yours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-line bg-coal">
+    <div class="mx-auto max-w-[1280px] px-5 py-20 text-center sm:px-8">
+      <h2 class="mx-auto max-w-xl font-display text-3xl font-700 tracking-tight sm:text-5xl">Now do yours.</h2>
+      <p class="mx-auto mt-4 max-w-lg text-muted">Sign up, paste a link, and get a verdict this honest about your own page.</p>
+      <a href="signup.html" class="press mt-8 inline-flex items-center justify-center bg-brand px-8 py-3 font-display font-600 text-ink hover:bg-paper">Roast my page</a>
+    </div>
+  </section>
+</main>
+
+<footer class="border-b border-line">
+  <div class="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 px-5 py-10 sm:flex-row sm:px-8">
+    <div class="flex items-center gap-2 font-display font-700 tracking-tight"><span class="inline-flex h-6 w-6 items-center justify-center bg-brand text-ink">R</span> ROAST</div>
+    <p class="font-mono text-xs text-muted">We score your page so a stranger does not have to.</p>
+    <div class="flex items-center gap-6 text-sm text-muted">
+      <a href="how.html" class="hover:text-paper">How it works</a>
+      <a href="sample.html" class="hover:text-paper">Sample</a>
+      <a href="login.html" class="hover:text-paper">Sign in</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

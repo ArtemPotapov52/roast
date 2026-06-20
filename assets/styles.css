@@ -1,0 +1,34 @@
+/* ROAST — shared styles (portable demo) */
+
+html { scroll-behavior: smooth; }
+body { background:#0a0a0a; }
+::selection { background:#FFE000; color:#0a0a0a; }
+
+/* Marquee */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 32s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Scroll reveal (driven by IntersectionObserver) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+}
+[data-reveal].in { opacity: 1; transform: none; }
+
+/* Tactile press on CTAs */
+.press { transition: transform .12s cubic-bezier(.16,1,.3,1), background-color .15s, color .15s; }
+.press:active { transform: translateY(1px) scale(.99); }
+
+/* Grain overlay (fixed, never on scroll containers) */
+.grain {
+  position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}

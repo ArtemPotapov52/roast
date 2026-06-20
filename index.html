@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ROAST — your landing page is leaking money</title>
+<meta name="description" content="Paste a URL. Our AI roasts your landing page on conversion, copy and design, then hands you the 5 fixes that matter. Brutally honest. No mercy." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/config.js"></script>
+</head>
+<body class="bg-ink text-paper font-sans antialiased">
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ===== NAV ===== -->
+<header class="sticky top-0 z-50 border-b border-line bg-ink/85 backdrop-blur">
+  <nav class="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
+    <a href="index.html" class="flex items-center gap-2 font-display text-lg font-700 tracking-tight">
+      <span class="inline-flex h-7 w-7 items-center justify-center bg-brand text-ink font-700">R</span> ROAST
+    </a>
+    <div class="hidden items-center gap-8 text-sm text-muted md:flex">
+      <a href="index.html" class="text-paper">Home</a>
+      <a href="how.html" class="transition-colors hover:text-paper">How it works</a>
+      <a href="sample.html" class="transition-colors hover:text-paper">Sample roast</a>
+    </div>
+    <div class="hidden items-center gap-4 md:flex">
+      <a href="login.html" data-auth-out class="text-sm text-muted transition-colors hover:text-paper">Sign in</a>
+      <span data-auth-in class="hidden font-mono text-xs text-muted" data-user-email></span>
+      <a href="#" data-auth-in data-logout class="hidden text-sm text-muted transition-colors hover:text-paper">Log out</a>
+      <a href="app.html" class="press bg-brand px-4 py-2 font-display text-sm font-600 text-ink hover:bg-paper">Roast me</a>
+    </div>
+    <button id="menu-btn" class="inline-flex h-10 w-10 items-center justify-center border border-line md:hidden" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div id="mobile-menu" class="hidden border-t border-line bg-ink md:hidden">
+    <div class="flex flex-col px-5 py-3">
+      <a href="index.html" class="py-2 text-paper">Home</a>
+      <a href="how.html" class="py-2 text-muted hover:text-paper">How it works</a>
+      <a href="sample.html" class="py-2 text-muted hover:text-paper">Sample roast</a>
+      <a href="login.html" data-auth-out class="py-2 text-muted hover:text-paper">Sign in</a>
+      <a href="#" data-auth-in data-logout class="hidden py-2 text-muted hover:text-paper">Log out</a>
+      <a href="app.html" class="mt-2 bg-brand px-4 py-2 text-center font-display font-600 text-ink">Roast me</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ===== HERO ===== -->
+  <section class="border-b border-line">
+    <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-5 pt-16 pb-20 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pt-24">
+      <div class="lg:col-span-7">
+        <span class="inline-flex items-center gap-2 border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-brand">Brutally honest AI</span>
+        <h1 class="mt-6 font-display text-5xl font-700 leading-[1.02] tracking-tight sm:text-6xl lg:text-[5.2rem]">
+          Your landing page<br class="hidden sm:block" /> is <span class="text-brand">leaking money.</span>
+        </h1>
+        <p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-muted">
+          Paste a URL. Our AI roasts your conversion, copy and design, then hands you the 5 fixes that actually matter.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href="signup.html" class="press inline-flex items-center justify-center bg-brand px-7 py-3 font-display font-600 text-ink hover:bg-paper">Roast my page</a>
+          <a href="sample.html" class="press inline-flex items-center justify-center border border-line px-7 py-3 font-display font-600 text-paper hover:border-brand">See a sample roast</a>
+        </div>
+        <p class="mt-4 font-mono text-xs text-muted">Free first roast. Email and password, that is it.</p>
+      </div>
+
+      <div class="relative lg:col-span-5">
+        <div data-reveal class="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center border-2 border-brand bg-coal">
+          <div class="absolute left-3 top-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">Verdict</div>
+          <div class="text-center">
+            <div class="font-display text-[10rem] font-700 leading-none text-brand">D-</div>
+            <div class="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-muted">Would not convert</div>
+          </div>
+          <div class="absolute bottom-3 right-3 font-mono text-[11px] text-muted">/ 14 issues found</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <section class="marquee overflow-hidden border-b border-line bg-brand py-3" aria-hidden="true">
+    <div class="marquee-track flex w-max items-center gap-10 whitespace-nowrap font-display text-sm font-600 uppercase tracking-wide text-ink">
+      <span class="flex items-center gap-10">
+        <span>F. Nobody knows what you do</span><span class="opacity-40">/</span>
+        <span>Your hero has 4 CTAs</span><span class="opacity-40">/</span>
+        <span>"Revolutionize" is not a value prop</span><span class="opacity-40">/</span>
+        <span>The button is invisible</span><span class="opacity-40">/</span>
+        <span>14 words before your point</span><span class="opacity-40">/</span>
+      </span>
+      <span class="flex items-center gap-10">
+        <span>F. Nobody knows what you do</span><span class="opacity-40">/</span>
+        <span>Your hero has 4 CTAs</span><span class="opacity-40">/</span>
+        <span>"Revolutionize" is not a value prop</span><span class="opacity-40">/</span>
+        <span>The button is invisible</span><span class="opacity-40">/</span>
+        <span>14 words before your point</span><span class="opacity-40">/</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ===== WHAT WE ROAST (bento) ===== -->
+  <section class="border-b border-line">
+    <div class="mx-auto max-w-[1280px] px-5 py-20 sm:px-8 lg:py-28">
+      <h2 class="max-w-[20ch] font-display text-3xl font-700 tracking-tight sm:text-5xl">Five things buyers judge in eight seconds.</h2>
+      <div class="mt-14 grid grid-cols-1 gap-px overflow-hidden border border-line bg-line md:grid-cols-6 md:grid-rows-2">
+        <div data-reveal class="flex flex-col justify-between bg-brand p-8 text-ink md:col-span-3 md:row-span-2">
+          <div class="font-mono text-xs uppercase tracking-[0.2em]">The big one</div>
+          <div>
+            <div class="font-display text-6xl font-700 leading-none">Clarity</div>
+            <p class="mt-4 max-w-[34ch] font-medium">Can a stranger tell what you do, who it is for, and why it beats the thing they use now? If not, nothing else matters.</p>
+          </div>
+        </div>
+        <div data-reveal class="bg-ink p-7 md:col-span-3">
+          <div class="font-display text-xl font-600 text-brand">Conversion path</div>
+          <p class="mt-2 text-muted">One obvious next step, or a maze of competing buttons. We count the leaks.</p>
+        </div>
+        <div data-reveal class="bg-coal p-7 md:col-span-2">
+          <div class="font-display text-xl font-600">Copy</div>
+          <p class="mt-2 text-muted">Filler verbs, vague claims, walls of text. We cut to what sells.</p>
+        </div>
+        <div data-reveal class="flex items-center justify-center bg-ink p-7 md:col-span-1">
+          <div class="text-center">
+            <div class="font-display text-4xl font-700 text-brand">8s</div>
+            <div class="mt-1 font-mono text-[11px] uppercase tracking-wide text-muted">to decide</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BAND ===== -->
+  <section class="border-b border-line bg-coal">
+    <div class="mx-auto max-w-[1280px] px-5 py-24 text-center sm:px-8 lg:py-32">
+      <h2 class="mx-auto max-w-2xl font-display text-4xl font-700 tracking-tight sm:text-6xl">Find out how bad it is.</h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-muted">Create an account and roast your first page free. No card, no fluff.</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="signup.html" class="press inline-flex items-center justify-center bg-brand px-8 py-3 font-display font-600 text-ink hover:bg-paper">Roast my page</a>
+        <a href="login.html" class="press inline-flex items-center justify-center border border-line px-8 py-3 font-display font-600 text-paper hover:border-brand">Sign in</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="border-b border-line">
+  <div class="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 px-5 py-10 sm:flex-row sm:px-8">
+    <div class="flex items-center gap-2 font-display font-700 tracking-tight"><span class="inline-flex h-6 w-6 items-center justify-center bg-brand text-ink">R</span> ROAST</div>
+    <p class="font-mono text-xs text-muted">We score your page so a stranger does not have to.</p>
+    <div class="flex items-center gap-6 text-sm text-muted">
+      <a href="how.html" class="hover:text-paper">How it works</a>
+      <a href="sample.html" class="hover:text-paper">Sample</a>
+      <a href="login.html" class="hover:text-paper">Sign in</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
