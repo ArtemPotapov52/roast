@@ -100,6 +100,7 @@
       if (meta) meta.textContent = metaText;
     }
     function showResult(text, metaText) {
+      out.classList.remove('hidden');
       loading.classList.add('hidden');
       loading.classList.remove('flex');
       status.classList.remove('hidden');
@@ -107,24 +108,15 @@
       if (meta) meta.textContent = metaText;
     }
 
-    rf.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var err = rf.querySelector('[data-error]'); if (err) err.classList.add('hidden');
-      var btn = rf.querySelector('button[type=submit]');
-      var url = rf.url.value.trim();
-      if (!url) { if (err) { err.textContent = 'Paste a URL first.'; err.classList.remove('hidden'); } rf.url.focus(); return; }
-
+    // Direct client-side call. Local dev fallback only (needs window.ROAST_KEY).
+    function directRoast(target, finish) {
       var key = window.ROAST_KEY;
       if (!key) {
-        showResult('No API key configured. Copy assets/secrets.example.js to assets/secrets.js and add your OpenRouter key.', 'no key');
+        showResult('No API key configured. On the live site, set OPENROUTER_KEY in Cloudflare Pages env vars. For local dev, add assets/secrets.js.', 'no key');
+        finish();
         return;
       }
-
-      var target = /^https?:\/\//i.test(url) ? url : 'https://' + url;
-      btn.disabled = true; var label = btn.textContent; btn.textContent = 'Roasting...';
       showLoading('Reading the page', 'reading');
-
-      // 1) Pull readable page text via a CORS-friendly reader, then 2) roast it.
       fetch('https://r.jina.ai/' + target)
         .then(function (r) { return r.ok ? r.text() : ''; })
         .catch(function () { return ''; })
@@ -135,28 +127,49 @@
           return fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              model: 'openrouter/free',
-              messages: [
-                { role: 'system', content: ROAST_SYSTEM },
-                { role: 'user', content: userMsg }
-              ]
-            })
+            body: JSON.stringify({ model: 'openrouter/free', messages: [{ role: 'system', content: ROAST_SYSTEM }, { role: 'user', content: userMsg }] })
           });
         })
         .then(function (resp) { return resp.json(); })
         .then(function (data) {
           var content = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-          if (content) {
-            showResult(content.trim(), 'done');
-          } else {
-            showResult('No verdict came back. ' + (data && data.error ? (data.error.message || JSON.stringify(data.error)) : 'Try again.'), 'error');
-          }
+          if (content) showResult(content.trim(), 'done');
+          else showResult('No verdict came back. ' + (data && data.error ? (data.error.message || JSON.stringify(data.error)) : 'Try again.'), 'error');
         })
-        .catch(function (e) {
-          showResult('Something broke: ' + e.message, 'error');
+        .catch(function (e) { showResult('Something broke: ' + e.message, 'error'); })
+        .then(finish);
+    }
+
+    rf.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = rf.querySelector('[data-error]'); if (err) err.classList.add('hidden');
+      var btn = rf.querySelector('button[type=submit]');
+      var url = rf.url.value.trim();
+      if (!url) { if (err) { err.textContent = 'Paste a URL first.'; err.classList.remove('hidden'); } rf.url.focus(); return; }
+
+      var target = /^https?:\/\//i.test(url) ? url : 'https://' + url;
+      btn.disabled = true; var label = btn.textContent; btn.textContent = 'Roasting...';
+      function finish() { btn.disabled = false; btn.textContent = label; }
+      showLoading('Roasting your page', 'roasting');
+
+      // Prefer the server-side proxy (Cloudflare Pages Function /api/roast).
+      fetch('/api/roast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: target })
+      })
+        .then(function (r) {
+          var ct = r.headers.get('content-type') || '';
+          if (ct.indexOf('application/json') === -1) return null; // not the Pages Function -> fall back
+          return r.json().catch(function () { return null; });
         })
-        .then(function () { btn.disabled = false; btn.textContent = label; });
+        .then(function (data) {
+          if (!data) { directRoast(target, finish); return; } // no proxy (e.g. local static server)
+          if (data.content) showResult(data.content, 'done');
+          else showResult('No verdict. ' + ((data.error && data.error.message) || 'Try again.'), 'error');
+          finish();
+        })
+        .catch(function () { directRoast(target, finish); });
     });
   }
 })();
